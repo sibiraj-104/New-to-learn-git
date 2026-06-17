@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Create Account</title>
+  <meta name="description" content="Create a new account and get started today." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    /* Animated background blobs */
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+
+    body::before {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #06b6d4, #3b82f6);
+      top: -120px;
+      right: -100px;
+    }
+
+    body::after {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, #ec4899, #8b5cf6);
+      bottom: -100px;
+      left: -80px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(25px, 25px) scale(1.08); }
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+      animation: slideUp 0.6s ease both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      border-radius: 14px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 25px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* Two-column row */
+    .row {
+      display: flex;
+      gap: 14px;
+    }
+
+    .row .field { flex: 1; }
+
+    /* Form fields */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 7px;
+      letter-spacing: 0.3px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    input:focus {
+      border-color: #06b6d4;
+      background: rgba(6, 182, 212, 0.1);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+    }
+
+    /* Password strength bar */
+    .strength-bar {
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .strength-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.35s ease, background 0.35s ease;
+    }
+
+    .strength-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+      min-height: 16px;
+      transition: color 0.3s;
+    }
+
+    /* Terms checkbox */
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 18px 0 20px;
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .terms input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      margin-top: 2px;
+      accent-color: #06b6d4;
+      cursor: pointer;
+      padding: 0;
+      border-radius: 4px;
+    }
+
+    .terms a {
+      color: #06b6d4;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .terms a:hover { color: #67e8f9; }
+
+    /* Submit button */
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Login link */
+    .login-link {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #06b6d4;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .login-link a:hover { color: #67e8f9; }
+
+    /* Error hint */
+    .hint {
+      font-size: 11.5px;
+      margin-top: 5px;
+      min-height: 16px;
+      color: #f87171;
+      display: none;
+    }
+
+    input.error {
+      border-color: #f87171;
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="logo">✨</div>
+
+    <h1>Create your account</h1>
+    <p class="subtitle">Join us today — it's completely free</p>
+
+    <form id="signupForm" onsubmit="handleSignup(event)" novalidate>
+
+      <!-- Name row -->
+      <div class="row">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="John" required autocomplete="given-name" />
+          <span class="hint" id="firstNameHint">Required</span>
+        </div>
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Doe" required autocomplete="family-name" />
+          <span class="hint" id="lastNameHint">Required</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+        <span class="hint" id="emailHint">Enter a valid email</span>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min. 8 characters" required autocomplete="new-password" oninput="checkStrength(this.value)" />
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+        <div class="strength-label" id="strengthLabel"></div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required autocomplete="new-password" />
+        <span class="hint" id="confirmHint">Passwords don't match</span>
+      </div>
+
+      <!-- Terms -->
+      <div class="terms">
+        <input type="checkbox" id="terms" name="terms" required />
+        <label for="terms" style="display:inline; margin-bottom:0; font-size:13px; color:rgba(255,255,255,0.5);">
+          I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn" id="signupBtn">Create Account</button>
+    </form>
+
+    <div class="divider">or</div>
+
+    <p class="login-link">Already have an account? <a href="login2.html">Sign in</a></p>
+  </div>
+
+  <script>
+    // Password strength checker
+    function checkStrength(val) {
+      const fill = document.getElementById('strengthFill');
+      const label = document.getElementById('strengthLabel');
+
+      let score = 0;
+      if (val.length >= 8)   score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = [
+        { pct: '0%',   color: 'transparent',                          text: '' },
+        { pct: '30%',  color: '#f87171',                              text: '⚠ Weak' },
+        { pct: '55%',  color: '#fb923c',                              text: '▲ Fair' },
+        { pct: '78%',  color: '#facc15',                              text: '✦ Good' },
+        { pct: '100%', color: 'linear-gradient(90deg,#34d399,#06b6d4)', text: '✔ Strong' },
+      ];
+
+      const lvl = val.length === 0 ? levels[0] : levels[score] || levels[1];
+      fill.style.width    = lvl.pct;
+      fill.style.background = lvl.color;
+      label.textContent   = lvl.text;
+      label.style.color   = score >= 3 ? '#34d399' : score === 2 ? '#facc15' : '#f87171';
+    }
+
+    // Form submission
+    function handleSignup(e) {
+      e.preventDefault();
+      let valid = true;
+
+      const firstName = document.getElementById('firstName');
+      const lastName  = document.getElementById('lastName');
+      const email     = document.getElementById('email');
+      const password  = document.getElementById('password');
+      const confirm   = document.getElementById('confirmPassword');
+      const terms     = document.getElementById('terms');
+
+      // Reset errors
+      [firstName, lastName, email, password, confirm].forEach(el => {
+        el.classList.remove('error');
+      });
+      document.querySelectorAll('.hint').forEach(h => h.style.display = 'none');
+
+      // Validate
+      if (!firstName.value.trim()) { showError(firstName, 'firstNameHint'); valid = false; }
+      if (!lastName.value.trim())  { showError(lastName,  'lastNameHint');  valid = false; }
+      if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        showError(email, 'emailHint'); valid = false;
+      }
+      if (password.value.length < 8) {
+        password.classList.add('error'); valid = false;
+      }
+      if (confirm.value !== password.value) {
+        showError(confirm, 'confirmHint'); valid = false;
+      }
+      if (!terms.checked) {
+        terms.style.outline = '2px solid #f87171'; valid = false;
+      } else {
+        terms.style.outline = 'none';
+      }
+
+      if (!valid) return;
+
+      // Success animation
+      const btn = document.getElementById('signupBtn');
+      btn.textContent = 'Creating account…';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = '🎉 Account Created!';
+        btn.style.background = 'linear-gradient(135deg, #059669, #10b981)';
+        btn.style.boxShadow  = '0 8px 24px rgba(5,150,105,0.4)';
+      }, 1600);
+    }
+
+    function showError(input, hintId) {
+      input.classList.add('error');
+      const hint = document.getElementById(hintId);
+      if (hint) hint.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
